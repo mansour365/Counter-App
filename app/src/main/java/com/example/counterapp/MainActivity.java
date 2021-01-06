@@ -132,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
                     resultTextView.setText(result + "");
                     return true;
                 }
+            //Going fullscreen
+            case R.id.fullScreenItem:
+                //do something
+                setFullScreen();
+                return true;
 
             //Settings page
             case R.id.settingsItem:
@@ -157,6 +162,18 @@ public class MainActivity extends AppCompatActivity {
         //Values we want to save when orientation changes
         //Result will be saved in the outside bundle
         outState.putInt("result", result);
+    }
+
+    public void setFullScreen(){
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
     }
 
 

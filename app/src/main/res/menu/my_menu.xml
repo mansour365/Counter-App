@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/fullScreenItem"
+        android:icon="@drawable/ic_fullscreen_26"
+        android:title="FullScreen"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/decrementItem"
         android:icon="@drawable/ic_remove_circle_outline_black_24dp"
         android:title="Decrement"
@@ -11,7 +17,7 @@
     <item android:id="@+id/resetItem"
         android:icon="@drawable/ic_refresh_black_24dp"
         android:title="Reset"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
     <item android:id="@+id/settingsItem"
         android:title="Settings"
