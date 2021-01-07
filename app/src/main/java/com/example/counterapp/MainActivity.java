@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     //variable responsible for vibration length
     int vlength = 50;
 
+    //Variable to know if fullscreen mode is currently in use
+    boolean isFullScreen = false;
+
 
 
     @Override
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Experimental
         //////////////////////////////////////////////////////////////////////////////////////////
-        //Create an onTouch Listener
+        //Create an onTouch Listener (the onclick listener was not responsive enough)
         resultTextView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -81,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
         //////////////////////////////////////////////////////////////////////////////////////////
 
 
+
+
+
+
         //If we have a saved instance state, then we'll use that (in the case when ex: orientation changes)
         if (savedInstanceState != null) {
             //if savedInstanceState is not null then we'll take that value and set the text to that value
@@ -90,6 +97,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //When the user presses the back button on the android navigation bar
+    @Override
+    public void onBackPressed() {
+        if(isFullScreen == true) {
+            showSystemUI();
+        }
+        else {
+            //Called from the parent class, this will do normal behaviour of back (exit app)
+            super.onBackPressed();
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //What each button will do when pressed
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
@@ -164,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putInt("result", result);
     }
 
+    //method to set full screen mode
     public void setFullScreen(){
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
@@ -173,8 +194,20 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        isFullScreen = true;
 
     }
+
+    //method to exit fullscreen mode
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        isFullScreen = false;
+    }
+
 
 
 }
