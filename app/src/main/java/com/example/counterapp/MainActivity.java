@@ -1,7 +1,9 @@
 package com.example.counterapp;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,15 +35,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         //the result text view
         resultTextView = (TextView) findViewById(R.id.resultTextView);
 
         //Create a vibration object
         final Vibrator vibrateobj = (Vibrator)getSystemService(VIBRATOR_SERVICE);
-
-
 
 
         //Create an onTouch Listener (the onclick listener was not responsive enough)
@@ -75,16 +73,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //loadData();
-        //updateViews();;
-
+        //load data
         //If something was saved in shared preferences load it into the result
         result = SharedPrefConfig.loadTotalFromPref(this);
         //display this value
         resultTextView.setText(result+"");
-
     }
-
 
 
     //When the user presses the back button on the android navigation bar
@@ -190,6 +184,8 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         isFullScreen = true;
 
+        //Show the dialog message
+        showDialog();
     }
 
     //method to exit fullscreen mode
@@ -202,6 +198,31 @@ public class MainActivity extends AppCompatActivity {
         isFullScreen = false;
     }
 
+    //method to show dialogue when you enter fullscreen mode
+    private void showDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 
+        alertDialogBuilder
+                .setMessage("Swipe up from bottom and press back to exit fullscreen mode.")
+
+                .setPositiveButton("OK", new DialogInterface.OnClickListener(){
+                       @Override
+                       public void onClick(DialogInterface dialogInterface, int i) {
+
+                       }
+                   })
+
+                .setNeutralButton("NEVER SHOW", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+
+
+    }
 
 }
