@@ -14,7 +14,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     //Set id's and references of textviews
-    TextView resultTextView;
+    //TextView resultTextView;
+    private TextView resultTextView;
 
     //Create a variable called result to store value of result
     int result = 0;
@@ -33,35 +34,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        //Create a addBtn Button object
-        //final Button addBtn = (Button) findViewById(R.id.addBtn);
 
-        //Create a resultTextView object
-        final TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
+        //the result text view
+        resultTextView = (TextView) findViewById(R.id.resultTextView);
 
         //Create a vibration object
         final Vibrator vibrateobj = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
 
-        //Create an onclick listener
-//        resultTextView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                //Make phone vibrate
-//                vibrateobj.vibrate(vlength);
-//
-//                //Increment the result value
-//                result++;
-//
-//                //Display the result value
-//                resultTextView.setText(result+"");
-//
-//            }
-//        });
 
-        //Experimental
-        //////////////////////////////////////////////////////////////////////////////////////////
+
         //Create an onTouch Listener (the onclick listener was not responsive enough)
         resultTextView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -76,16 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
                     //Display the result value
                     resultTextView.setText(result+"");
+
+                    //save the data, incase the app is closed
+                    SharedPrefConfig.saveTotalInPref(getApplicationContext(), result);
                 }
                 return false;
             }
         });
-
-        //////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
 
         //If we have a saved instance state, then we'll use that (in the case when ex: orientation changes)
@@ -95,7 +74,18 @@ public class MainActivity extends AppCompatActivity {
             resultTextView.setText(result+"");
         }
 
+
+        //loadData();
+        //updateViews();;
+
+        //If something was saved in shared preferences load it into the result
+        result = SharedPrefConfig.loadTotalFromPref(this);
+        //display this value
+        resultTextView.setText(result+"");
+
     }
+
+
 
     //When the user presses the back button on the android navigation bar
     @Override
@@ -135,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Minus 1", Toast.LENGTH_SHORT).show();
                     result--;
                     resultTextView.setText(result+"");
+                    //Save result in shared preferences
+                    SharedPrefConfig.saveTotalInPref(getApplicationContext(), result);
                     return true;
                 }
 
@@ -150,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Counter Reset", Toast.LENGTH_SHORT).show();
                     result = 0;
                     resultTextView.setText(result + "");
+                    //Save result in shared preferences
+                    SharedPrefConfig.saveTotalInPref(getApplicationContext(), result);
                     return true;
                 }
             //Going fullscreen
