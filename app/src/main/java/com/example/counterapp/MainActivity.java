@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
     //Variable to know if fullscreen mode is currently in use
     boolean isFullScreen = false;
 
+    //experimental
+    boolean showDialog = true;
+
+
 
 
     @Override
@@ -184,8 +188,17 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         isFullScreen = true;
 
+        //load data
+        //If something was saved in shared preferences load it into the showDialog
+        showDialog = SharedPrefConfig.loadNevershowFromPref(this);
+
         //Show the dialog message
-        showDialog();
+        if(showDialog == true){
+            //I think we need to load first then check
+            showDialog();
+        }
+
+
     }
 
     //method to exit fullscreen mode
@@ -203,11 +216,14 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 
         alertDialogBuilder
-                .setMessage("Swipe up from bottom and press back to exit fullscreen mode.")
+                .setCancelable(false) //so that user cannot back out of the message without answering it
+
+                .setMessage("Swipe up from bottom or swipe down from the top, then press back to exit fullscreen mode.")
 
                 .setPositiveButton("OK", new DialogInterface.OnClickListener(){
                        @Override
                        public void onClick(DialogInterface dialogInterface, int i) {
+                           dialogInterface.dismiss();
 
                        }
                    })
@@ -215,10 +231,14 @@ public class MainActivity extends AppCompatActivity {
                 .setNeutralButton("NEVER SHOW", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        //save the data, incase the app is closed
+                        SharedPrefConfig.saveNevershowInPref(getApplicationContext(), showDialog = false);
+                        dialogInterface.dismiss();
                     }
                 });
+
         AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.setCanceledOnTouchOutside(false); //dialog cannot be canceled by touching outside the window's bounds
         alertDialog.show();
 
 
