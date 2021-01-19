@@ -1,6 +1,7 @@
 package com.example.counterapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     //Variable to know if fullscreen mode is currently in use
     boolean isFullScreen = false;
 
-    //experimental
+    //variable to know if we need to show fullscreen dialog
     boolean showDialog = true;
 
 
@@ -152,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
 
             //Settings page
             case R.id.settingsItem:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                openSettingActivity();
                 return true;
 
             //About page
@@ -240,9 +242,14 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.setCanceledOnTouchOutside(false); //dialog cannot be canceled by touching outside the window's bounds
         alertDialog.show();
-
-
-
     }
+
+    //method the open the settings activity
+    public void openSettingActivity(){
+        //create an intent object, parameter (this context, the activity we want to open)
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
+    }
+
 
 }
