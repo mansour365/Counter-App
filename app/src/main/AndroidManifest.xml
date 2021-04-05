@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.counterapp">
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,10 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        //I made the parent of settings activity to be main activity
-        <activity android:name=".SettingActivity"
-            android:label = "Settings"
-            android:parentActivityName=".MainActivity"/>
+
+        <!-- // This was previous code when I created the settings activity -->
+        <!-- // However this one does not take into consideration a parent class -->
+        <!--<activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity> -->
+
+
+        <!-- // I made the parent of settings activity to be main activity -->
+        <!-- // This will allow the back button on the settings page to return to the main (parent) activity -->
+        <activity android:name=".SettingsActivity"
+        android:label = "Settings"
+        android:parentActivityName=".MainActivity"/>
+
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,5 +33,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
 
 </manifest>
