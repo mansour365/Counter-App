@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     //variable to know if we need to show fullscreen dialog
     boolean showDialog = true;
 
-    boolean toggleVibration = true;
+    static boolean toggleVibration = true;
 
 
 
@@ -44,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
+
 
         //the result text view
         resultTextView = (TextView) findViewById(R.id.resultTextView);
@@ -94,13 +99,27 @@ public class MainActivity extends AppCompatActivity {
         //display this value
         resultTextView.setText(result+"");
 
+
+
         //Get any data from the settingsActivity page that was saved on that activity automatically
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         toggleVibration = prefs.getBoolean("toggle_vibration", true); //the key and the default value
 
+
+
+        
         //for testing purposes
         Toast.makeText(this, "Current vibration state is "+toggleVibration, Toast.LENGTH_SHORT).show();
+
+
+
+
     }
+
+
+
+
+
 
 
     //When the user presses the back button on the android navigation bar
