@@ -20,6 +20,18 @@
             app:summary="How long one vibration occurs"
             app:dependency="toggle_vibration" />
 
+        <EditTextPreference
+            app:title="Triple vibration after interval"
+            app:summary="Will vibrate 3 times after a certain amount of counts have passed"
+            app:key="interval" />
+
+        <!--
+        <EditTextPreference
+            app:key="number"
+            app:title="Numbers only preference"/>
+        -->
+
+
 
 
         <!--

@@ -3,9 +3,13 @@ package com.example.counterapp;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.InputType;
+import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.EditTextPreference;
 import androidx.preference.PreferenceFragmentCompat;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -30,6 +34,22 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
+
+            //This is so that interval only accepts a number input
+            //----------------------------------------------------------------------
+            EditTextPreference numberPreference = findPreference("interval");
+
+            if (numberPreference != null) {
+                numberPreference.setOnBindEditTextListener(
+                        new EditTextPreference.OnBindEditTextListener() {
+                            @Override
+                            public void onBindEditText(@NonNull EditText editText) {
+                                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                            }
+                        });
+            }
+            //----------------------------------------------------------------------
+
         }
     }
 
@@ -43,5 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         MainActivity.toggleVibration = prefs.getBoolean("toggle_vibration", true); //the key and the default value
         MainActivity.vlength = prefs.getInt("vibration_length", 50);
+
+
     }
 }
