@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="@string/vibration_header">
 
@@ -9,16 +10,16 @@
             app:summary="Enable or disable vibration"
             app:useSimpleSummaryProvider="true" />
 
-        <!--
+
         <SeekBarPreference
-            app:min="0"
-            app:max="100"
-            app:defaultValue= "25"
+            app:min="10"
+            android:max="110"
+            app:defaultValue= "50"
             app:title="@string/vibration_length_title"
             app:key="vibration_length"
             app:summary="How long one vibration occurs"
             app:dependency="toggle_vibration" />
-        -->
+
 
 
         <!--

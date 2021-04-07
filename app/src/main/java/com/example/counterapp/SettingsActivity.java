@@ -42,5 +42,6 @@ public class SettingsActivity extends AppCompatActivity {
         //Now it also works with the bottom back button
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         MainActivity.toggleVibration = prefs.getBoolean("toggle_vibration", true); //the key and the default value
+        MainActivity.vlength = prefs.getInt("vibration_length", 50);
     }
 }

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     int result = 0;
 
     //variable responsible for vibration length
-    int vlength = 50;
+    static int vlength = 50;
 
     //Variable to know if fullscreen mode is currently in use
     boolean isFullScreen = false;
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     boolean showDialog = true;
 
     static boolean toggleVibration = true;
+
 
 
 
@@ -104,10 +105,11 @@ public class MainActivity extends AppCompatActivity {
         //Get any data from the settingsActivity page that was saved on that activity automatically
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         toggleVibration = prefs.getBoolean("toggle_vibration", true); //the key and the default value
+        vlength = prefs.getInt("vibration_length", 50);
 
 
 
-        
+
         //for testing purposes
         Toast.makeText(this, "Current vibration state is "+toggleVibration, Toast.LENGTH_SHORT).show();
 
