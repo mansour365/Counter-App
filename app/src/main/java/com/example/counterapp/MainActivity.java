@@ -2,8 +2,10 @@ package com.example.counterapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     //variable to know if we need to show fullscreen dialog
     boolean showDialog = true;
 
+    boolean toggleVibration = true;
+
 
 
 
@@ -54,8 +58,13 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
 
-                    //Make phone vibrate
-                    vibrateobj.vibrate(vlength);
+
+                    if (toggleVibration == true)
+                    {
+                        //Make phone vibrate
+                        vibrateobj.vibrate(vlength);
+                    }
+
 
                     //Increment the result value
                     result++;
@@ -84,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
         result = SharedPrefConfig.loadTotalFromPref(this);
         //display this value
         resultTextView.setText(result+"");
+
+        //Get any data from the settingsActivity page that was saved on that activity automatically
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        toggleVibration = prefs.getBoolean("toggle_vibration", true); //the key and the default value
+
+        //for testing purposes
+        Toast.makeText(this, "Current vibration state is "+toggleVibration, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -156,11 +172,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.settingsItem:
                 //Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 openSettingActivity();
-                return true;
-
-            //About page
-            case R.id.aboutItem:
-                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
                 return true;
 
             default:

@@ -23,8 +23,5 @@
         android:title="Settings"
         app:showAsAction="never" />
 
-    <item android:id="@+id/aboutItem"
-        android:title="About"
-        app:showAsAction="never" />
 
 </menu>

@@ -1,12 +1,27 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/vibration_header">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="toggle_vibration"
+            app:title="@string/vibration_title"
+            app:summary="Enable or disable vibration"
             app:useSimpleSummaryProvider="true" />
 
+        <!--
+        <SeekBarPreference
+            app:min="0"
+            app:max="100"
+            app:defaultValue= "25"
+            app:title="@string/vibration_length_title"
+            app:key="vibration_length"
+            app:summary="How long one vibration occurs"
+            app:dependency="toggle_vibration" />
+        -->
+
+
+        <!--
         <ListPreference
             app:defaultValue="reply"
             app:entries="@array/reply_entries"
@@ -14,10 +29,20 @@
             app:key="reply"
             app:title="@string/reply_title"
             app:useSimpleSummaryProvider="true" />
+        -->
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+
+
+    <PreferenceCategory app:title="@string/about_header">
+
+        <Preference
+            app:title="Current version: 1.0"
+            app:summary="A simple application to help one keep count. Designed to respect your privacy, absolutely no information is collected from the user. This app was written by Mansour Maqsoudi. ">
+        </Preference>
+
+        <!--
 
         <SwitchPreferenceCompat
             app:key="sync"
@@ -29,6 +54,8 @@
             app:summaryOff="@string/attachment_summary_off"
             app:summaryOn="@string/attachment_summary_on"
             app:title="@string/attachment_title" />
+
+        -->
 
     </PreferenceCategory>
 
