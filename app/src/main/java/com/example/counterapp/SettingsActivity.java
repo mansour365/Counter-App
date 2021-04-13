@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -67,10 +66,13 @@ public class SettingsActivity extends AppCompatActivity {
         MainActivity.toggleVibration = prefs.getBoolean("toggle_vibration", true); //the key and the default value
         MainActivity.vlength = prefs.getInt("vibration_length", 50);
         MainActivity.toggleTriple = prefs.getBoolean("toggle_triple_key", false);
+
         MainActivity.interval_string = prefs.getString("interval_string_key", "10");
         MainActivity.interval = Integer.parseInt(MainActivity.interval_string);
+        //Toast.makeText(this, "Will triple vibrate every "+MainActivity.interval+" count intervals", Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this, "Current triple state is "+MainActivity.toggleTriple, Toast.LENGTH_SHORT).show();
+
+        //Toast.makeText(this, "Current triple state is "+MainActivity.toggleTriple, Toast.LENGTH_SHORT).show();
 
     }
 }

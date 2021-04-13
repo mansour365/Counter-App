@@ -76,17 +76,22 @@ public class MainActivity extends AppCompatActivity {
 
                     if (toggleVibration == true)
                     {
+                        //vibrate
                         vibrateobj.vibrate(vlength);
                     }
 
                     //Increment the result value
                     result++;
+                    //decrement the interval value
+                    interval--;
 
-                    if(result == interval)
+                    if(interval == 0)
                     {
+                        //triple vibrate
                         vibrateobj.vibrate(mVibratePattern, -1);
+                        //Initialize interval back to original value
+                        interval = Integer.parseInt(interval_string);
                     }
-
 
                     //Display the result value
                     resultTextView.setText(result+"");
@@ -124,13 +129,14 @@ public class MainActivity extends AppCompatActivity {
 
         //convert from string to integer
         interval = Integer.parseInt(interval_string);
+        //Toast.makeText(this, "Will triple vibrate every "+interval+" count intervals", Toast.LENGTH_SHORT).show();
 
 
 
 
 
         //for testing purposes
-        Toast.makeText(this, "Current interval is "+interval_string, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Current interval is "+interval_string, Toast.LENGTH_SHORT).show();
 
 
 
