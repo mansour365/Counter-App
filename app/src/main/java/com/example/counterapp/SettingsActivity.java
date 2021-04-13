@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -35,6 +36,8 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
+
+
             //This is so that interval only accepts a number input
             //----------------------------------------------------------------------
             EditTextPreference numberPreference = findPreference("interval");
@@ -63,7 +66,9 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         MainActivity.toggleVibration = prefs.getBoolean("toggle_vibration", true); //the key and the default value
         MainActivity.vlength = prefs.getInt("vibration_length", 50);
+        MainActivity.toggleTriple = prefs.getBoolean("toggle_triple_key", false);
 
+        Toast.makeText(this, "Current triple state is "+MainActivity.toggleTriple, Toast.LENGTH_SHORT).show();
 
     }
 }

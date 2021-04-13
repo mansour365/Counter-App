@@ -20,10 +20,18 @@
             app:summary="How long one vibration occurs"
             app:dependency="toggle_vibration" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="toggle_triple_key"
+            app:title="@string/triple_vibration_title"
+            app:summary="Enabling will vibrate 3 times after a certain interval of counts have passed"
+            app:useSimpleSummaryProvider="true" />
+
         <EditTextPreference
-            app:title="Triple vibration after interval"
-            app:summary="Will vibrate 3 times after a certain amount of counts have passed"
-            app:key="interval" />
+            app:title="Triple vibration interval"
+            app:summary="Enter the number of counts to pass for a triple vibration"
+            app:key="interval"
+            app:dependency="toggle_triple_key"/>
 
         <!--
         <EditTextPreference

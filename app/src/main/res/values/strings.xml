@@ -39,6 +39,8 @@
 
     <string name="vibration_length_title">Vibration duration</string>
 
+    <string name="triple_vibration_title">Toggle triple vibration after an interval</string>
+
     <string name="reply_title">Default reply action</string>
 
     <string name="sync_title">Sync email periodically</string>

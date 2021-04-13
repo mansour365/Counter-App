@@ -36,19 +36,25 @@ public class MainActivity extends AppCompatActivity {
     boolean showDialog = true;
 
     static boolean toggleVibration = true;
+    static boolean toggleTriple = false;
+    static String interval_string = "10";
+    static int interval;
+
+
+    //initial delay, vibrate, delay, vibrate, delay, vibrate
+    long[] mVibratePattern = new long[]{0, 200, 150, 200, 150, 200};
 
 
 
 
 
 
+
+    Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
 
 
 
@@ -57,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Create a vibration object
         final Vibrator vibrateobj = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+
 
 
         //Create an onTouch Listener (the onclick listener was not responsive enough)
@@ -68,13 +75,18 @@ public class MainActivity extends AppCompatActivity {
 
                     if (toggleVibration == true)
                     {
-                        //Make phone vibrate
                         vibrateobj.vibrate(vlength);
                     }
 
 
                     //Increment the result value
                     result++;
+
+                    if(result == interval)
+                    {
+                        vibrateobj.vibrate(mVibratePattern, -1);
+                    }
+
 
                     //Display the result value
                     resultTextView.setText(result+"");
@@ -107,24 +119,22 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         toggleVibration = prefs.getBoolean("toggle_vibration", true); //the key and the default value
         vlength = prefs.getInt("vibration_length", 50);
+        toggleTriple = prefs.getBoolean("toggle_triple_key", false);
+        interval_string = prefs.getString("interval", "10");
+
+        //convert from string to integer
+        interval = Integer.parseInt(interval_string);
 
 
 
 
 
         //for testing purposes
-        Toast.makeText(this, "Current vibration state is "+toggleVibration, Toast.LENGTH_SHORT).show();
-
-
-
+        Toast.makeText(this, "Current interval is "+interval_string, Toast.LENGTH_SHORT).show();
 
 
 
     }
-
-
-
-
 
 
 
