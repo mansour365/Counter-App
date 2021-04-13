@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                     {
                         vibrateobj.vibrate(vlength);
                     }
-
 
                     //Increment the result value
                     result++;
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         toggleVibration = prefs.getBoolean("toggle_vibration", true); //the key and the default value
         vlength = prefs.getInt("vibration_length", 50);
         toggleTriple = prefs.getBoolean("toggle_triple_key", false);
-        interval_string = prefs.getString("interval", "10");
+        interval_string = prefs.getString("interval_string_key", "10");
 
         //convert from string to integer
         interval = Integer.parseInt(interval_string);

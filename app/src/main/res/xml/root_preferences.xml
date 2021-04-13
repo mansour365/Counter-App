@@ -30,7 +30,7 @@
         <EditTextPreference
             app:title="Triple vibration interval"
             app:summary="Enter the number of counts to pass for a triple vibration"
-            app:key="interval"
+            app:key="interval_string_key"
             app:dependency="toggle_triple_key"/>
 
         <!--
