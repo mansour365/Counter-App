@@ -35,15 +35,24 @@ public class MainActivity extends AppCompatActivity {
     //variable to know if we need to show fullscreen dialog
     boolean showDialog = true;
 
+    //variable for the vibration toggle
     static boolean toggleVibration = true;
+
+    //variable for triple vibration toggle
     static boolean toggleTriple = false;
+
+    //Variable for the string interval obtained from the user
     static String interval_string = "10";
+
+    //Variable for the actual interval converted from the users string interval
     static int interval;
 
-
-    //initial delay, vibrate, delay, vibrate, delay, vibrate
+    //Pattern for the triple vibration (initial delay, vibrate, delay, vibrate, delay, vibrate)
     long[] mVibratePattern = new long[]{0, 200, 150, 200, 150, 200};
 
+
+    static int oldInterval;
+    static boolean intervalStored = false;
 
 
 
@@ -73,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
 
+                    //Stored the users interval if it is different
+                    if(!intervalStored && toggleTriple == true)
+                    {
+                          oldInterval = Integer.parseInt(interval_string);
+                          intervalStored = true;
+                    }
 
                     if (toggleVibration == true)
                     {
@@ -82,8 +97,12 @@ public class MainActivity extends AppCompatActivity {
 
                     //Increment the result value
                     result++;
-                    //decrement the interval value
-                    interval--;
+
+                    //decrement the interval value if triple toggle is on
+                    if(toggleTriple == true)
+                    {
+                        interval--;
+                    }
 
                     if(interval == 0)
                     {
@@ -127,19 +146,28 @@ public class MainActivity extends AppCompatActivity {
         toggleTriple = prefs.getBoolean("toggle_triple_key", false);
         interval_string = prefs.getString("interval_string_key", "10");
 
+
         //convert from string to integer
-        interval = Integer.parseInt(interval_string);
+        //check if interval has changed if it has then replace old interval with the new interval
+        if(oldInterval != Integer.parseInt(interval_string))
+        {
+            //This interval will need to be stored
+            intervalStored = false;
+            //Update current interval with new interval
+            interval = Integer.parseInt(interval_string);
+            Toast.makeText(this, "Interval has changed, it is now "+interval, Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(this, "Interval has not changed", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+
         //Toast.makeText(this, "Will triple vibrate every "+interval+" count intervals", Toast.LENGTH_SHORT).show();
-
-
-
-
-
         //for testing purposes
         //Toast.makeText(this, "Current interval is "+interval_string, Toast.LENGTH_SHORT).show();
-
-
-
     }
 
 
@@ -157,12 +185,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflator = getMenuInflater();
         inflator.inflate(R.menu.my_menu, menu);
         return true;
     }
+
 
     //What each button will do when pressed
     @Override
