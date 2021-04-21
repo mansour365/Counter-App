@@ -34,12 +34,19 @@
 
     <string name="about_header">About</string>
 
+
     <!-- Example settings for Notifications -->
     <string name="vibration_title">Toggle vibration</string>
 
     <string name="vibration_length_title">Vibration duration</string>
 
-    <string name="triple_vibration_title">Toggle triple vibration after an interval</string>
+    <string name="triple_vibration_title">Triple vibration after interval</string>
+
+    <string name="reset_interval_title">Also reset interval</string>
+
+    <string name="display_interval_title">Display interval</string>
+
+    <string name="display_header">Display</string>
 
     <string name="reply_title">Default reply action</string>
 

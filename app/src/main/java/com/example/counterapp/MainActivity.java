@@ -3,6 +3,7 @@ package com.example.counterapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     //Set id's and references of textviews
     //TextView resultTextView;
     private TextView resultTextView;
+
+    //TextView of the interval
+    private TextView intervalTextView;
 
     //Create a variable called result to store value of result
     int result = 0;
@@ -50,9 +54,15 @@ public class MainActivity extends AppCompatActivity {
     //Pattern for the triple vibration (initial delay, vibrate, delay, vibrate, delay, vibrate)
     long[] mVibratePattern = new long[]{0, 200, 150, 200, 150, 200};
 
-
+    //Variable to store the interval before it gets changed by the user
     static int oldInterval;
+
+    //Variable to indicate if a new interval from the user needs to be saved
     static boolean intervalStored = false;
+
+    static boolean displayInterval = false;
+
+    static boolean resetInterval = false;
 
 
 
@@ -67,12 +77,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         //the result text view
         resultTextView = (TextView) findViewById(R.id.resultTextView);
 
+        //the interval text view
+        intervalTextView = (TextView) findViewById(R.id.intervalTextView);
+
         //Create a vibration object
         final Vibrator vibrateobj = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+
 
 
 
@@ -83,14 +96,14 @@ public class MainActivity extends AppCompatActivity {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
 
                     //Stored the users interval if it is different
-                    if(!intervalStored && toggleTriple == true)
-                    {
+                    if(!intervalStored && toggleTriple == true){
                           oldInterval = Integer.parseInt(interval_string);
                           intervalStored = true;
                     }
 
-                    if (toggleVibration == true)
-                    {
+
+
+                    if (toggleVibration == true){
                         //vibrate
                         vibrateobj.vibrate(vlength);
                     }
@@ -99,13 +112,25 @@ public class MainActivity extends AppCompatActivity {
                     result++;
 
                     //decrement the interval value if triple toggle is on
-                    if(toggleTriple == true)
-                    {
+                    if(toggleTriple == true){
                         interval--;
+
+                        if(displayInterval == true){
+                            //set to visible
+                            intervalTextView.setTextColor(Color.WHITE);
+                            //Assign the interval integer to the intervalTextView to be displayed
+                            intervalTextView.setText(String.valueOf(interval));
+                        }
+                        else{
+                            intervalTextView.setTextColor(Color.BLACK);
+                        }
                     }
 
-                    if(interval == 0)
-                    {
+
+
+
+
+                    if(interval == 0){
                         //triple vibrate
                         vibrateobj.vibrate(mVibratePattern, -1);
                         //Initialize interval back to original value
@@ -145,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
         vlength = prefs.getInt("vibration_length", 50);
         toggleTriple = prefs.getBoolean("toggle_triple_key", false);
         interval_string = prefs.getString("interval_string_key", "10");
+        displayInterval = prefs.getBoolean("display_interval_key", false);
+        resetInterval = prefs.getBoolean("reset_interval_key", false);
 
 
         //convert from string to integer
@@ -160,14 +187,9 @@ public class MainActivity extends AppCompatActivity {
         else
         {
             Toast.makeText(this, "Interval has not changed", Toast.LENGTH_SHORT).show();
-
         }
 
 
-
-        //Toast.makeText(this, "Will triple vibrate every "+interval+" count intervals", Toast.LENGTH_SHORT).show();
-        //for testing purposes
-        //Toast.makeText(this, "Current interval is "+interval_string, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -222,12 +244,28 @@ public class MainActivity extends AppCompatActivity {
                 //if already 0 show message "Already 0"
                 if(result == 0){
                     Toast.makeText(this, "Already 0", Toast.LENGTH_SHORT).show();
+                    //reset the interval
+                    if(resetInterval == true)
+                    {
+                        //reset interval back to original value
+                        interval = Integer.parseInt(interval_string);
+                        //Assign the interval integer to the intervalTextView to be displayed
+                        intervalTextView.setText(String.valueOf(interval));
+                    }
                     return true;
                 }
                 //else reset the counter
                 else {
                     Toast.makeText(this, "Counter Reset", Toast.LENGTH_SHORT).show();
                     result = 0;
+                    //Reset the interval
+                    if(resetInterval == true)
+                    {
+                        //reset interval back to original value
+                        interval = Integer.parseInt(interval_string);
+                        //Assign the interval integer to the intervalTextView to be displayed
+                        intervalTextView.setText(String.valueOf(interval));
+                    }
                     resultTextView.setText(result + "");
                     //Save result in shared preferences
                     SharedPrefConfig.saveTotalInPref(getApplicationContext(), result);

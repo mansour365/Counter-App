@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
         MainActivity.toggleTriple = prefs.getBoolean("toggle_triple_key", false);
 
         MainActivity.interval_string = prefs.getString("interval_string_key", "10");
-       
+
         //Toast.makeText(this, "Will triple vibrate every "+MainActivity.interval+" count intervals", Toast.LENGTH_SHORT).show();
 
         if(MainActivity.oldInterval != Integer.parseInt(MainActivity.interval_string))
@@ -80,6 +80,9 @@ public class SettingsActivity extends AppCompatActivity {
             MainActivity.interval = Integer.parseInt(MainActivity.interval_string);
             Toast.makeText(this, "Interval has changed, it is now "+MainActivity.interval, Toast.LENGTH_SHORT).show();
         }
+
+        MainActivity.displayInterval = prefs.getBoolean("display_interval_key", false);
+        MainActivity.resetInterval = prefs.getBoolean("reset_interval_key", false);
 
         //Toast.makeText(this, "Current triple state is "+MainActivity.toggleTriple, Toast.LENGTH_SHORT).show();
 

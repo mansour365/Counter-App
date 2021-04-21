@@ -10,7 +10,6 @@
             app:summary="Enable or disable vibration"
             app:useSimpleSummaryProvider="true" />
 
-
         <SeekBarPreference
             app:min="10"
             android:max="110"
@@ -33,14 +32,18 @@
             app:key="interval_string_key"
             app:dependency="toggle_triple_key"/>
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="reset_interval_key"
+            app:title="@string/reset_interval_title"
+            app:summary="When enabled resetting the counter will also reset the interval"
+            app:useSimpleSummaryProvider="true" />
+
         <!--
         <EditTextPreference
             app:key="number"
             app:title="Numbers only preference"/>
         -->
-
-
-
 
         <!--
         <ListPreference
@@ -51,8 +54,24 @@
             app:title="@string/reply_title"
             app:useSimpleSummaryProvider="true" />
         -->
+    </PreferenceCategory>
+
+
+
+
+    <PreferenceCategory app:title="@string/display_header">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="display_interval_key"
+            app:title="@string/display_interval_title"
+            app:summary="Toggle to display current interval in top right of screen"
+            app:useSimpleSummaryProvider="true"
+            app:dependency="toggle_triple_key"/>
 
     </PreferenceCategory>
+
+
 
 
 
@@ -63,21 +82,8 @@
             app:summary="A simple application to help one keep count. Designed to respect your privacy, absolutely no information is collected from the user. This app was written by Mansour Maqsoudi. ">
         </Preference>
 
-        <!--
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
-        -->
-
     </PreferenceCategory>
+
+
 
 </PreferenceScreen>
