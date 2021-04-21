@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
 
-                    //Stored the users interval if it is different
+                    //Store the users interval if it is different
                     if(!intervalStored && toggleTriple == true){
                           oldInterval = Integer.parseInt(interval_string);
                           intervalStored = true;
@@ -174,21 +174,29 @@ public class MainActivity extends AppCompatActivity {
         resetInterval = prefs.getBoolean("reset_interval_key", false);
 
 
-        //convert from string to integer
-        //check if interval has changed if it has then replace old interval with the new interval
-        if(oldInterval != Integer.parseInt(interval_string))
-        {
-            //This interval will need to be stored
-            intervalStored = false;
-            //Update current interval with new interval
-            interval = Integer.parseInt(interval_string);
-            Toast.makeText(this, "Interval has changed, it is now "+interval, Toast.LENGTH_SHORT).show();
+        //First check if the string is empty
+        if(interval_string.equals("") || interval_string.isEmpty() || interval_string == ""){
+            Toast.makeText(this, "You did not enter an interval, will use default of 10", Toast.LENGTH_SHORT).show();
+            //set it deault of 10
+            interval_string = "10";
         }
-        else
-        {
-            Toast.makeText(this, "Interval has not changed", Toast.LENGTH_SHORT).show();
+        else{
+            //If we are here then the string is not empty
+            //check if the string is different from last string
+            if(oldInterval != Integer.parseInt(interval_string))
+            {
+                //If we are here then the new string is different
+                //This interval will need to be stored, false means it has not been stored yet
+                intervalStored = false;
+                //Update current interval with new interval
+                interval = Integer.parseInt(interval_string);
+                Toast.makeText(this, "Interval has changed, it is now "+interval, Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(this, "Interval has not changed", Toast.LENGTH_SHORT).show();
+            }
         }
-
 
     }
 

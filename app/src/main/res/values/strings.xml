@@ -42,11 +42,11 @@
 
     <string name="triple_vibration_title">Triple vibration after interval</string>
 
-    <string name="reset_interval_title">Also reset interval</string>
+    <string name="reset_interval_title">Reset interval</string>
 
     <string name="display_interval_title">Display interval</string>
 
-    <string name="display_header">Display</string>
+    <string name="interval_header">Interval</string>
 
     <string name="reply_title">Default reply action</string>
 
