@@ -8,6 +8,8 @@ public class SharedPrefConfig {
     private static final String MY_PREFERENCE_NAME = "com.example.counterapp";
     private static final String PREF_TOTAL_KEY = "pref_total_key";
 
+    private static final String PREF_INTERVAL_KEY="pref_interval_key";
+
     //shared preference variable for the fullscreen dialog
     private static final String PREF_DIALOGUE_KEY = "pref_dialogue_key";
 
@@ -34,6 +36,25 @@ public class SharedPrefConfig {
         return sp.getInt(PREF_TOTAL_KEY, 0);
 
     }
+
+    public static void saveIntervalInPref(Context context, int intervalTotal){
+
+        SharedPreferences sp = context.getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putInt(PREF_INTERVAL_KEY, intervalTotal);
+
+        editor.apply();
+    }
+
+    public static int loadIntervalFromPref(Context context){
+
+        SharedPreferences sp = context.getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
+
+        return sp.getInt(PREF_INTERVAL_KEY, 0);
+    }
+
 
 
     //method to save NEVERSHOW in the fullscreen dialogue

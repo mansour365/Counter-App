@@ -129,8 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
                     if(displayedInterval == interval){
                         //triple vibrate
                         vibrateobj.vibrate(mVibratePattern, -1);
@@ -145,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //save the data, incase the app is closed
                     SharedPrefConfig.saveTotalInPref(getApplicationContext(), result);
+                    SharedPrefConfig.saveIntervalInPref(getApplicationContext(), displayedInterval);
                 }
                 return false;
             }
@@ -163,11 +162,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
+        
         //load data
         //If something was saved in shared preferences load it into the result
         result = SharedPrefConfig.loadTotalFromPref(this);
+
+        displayedInterval = SharedPrefConfig.loadIntervalFromPref(this);
         //display this value
         resultTextView.setText(result+"");
+
+        intervalTextView.setTextColor(Color.WHITE);
+        intervalTextView.setText(displayedInterval+"");
+
+
+
 
 
 
