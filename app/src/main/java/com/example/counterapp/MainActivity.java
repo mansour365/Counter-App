@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     //Create a variable called result to store value of result
     int result = 0;
 
+    int displayedInterval = 0;
+
     //variable responsible for vibration length
     static int vlength = 50;
 
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     //Variable to indicate if a new interval from the user needs to be saved
     static boolean intervalStored = false;
 
-    static boolean displayInterval = false;
+    static boolean displayIntervalToggle = false;
 
     static boolean resetInterval = false;
 
@@ -101,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
                           intervalStored = true;
                     }
 
-
-
                     if (toggleVibration == true){
                         //vibrate
                         vibrateobj.vibrate(vlength);
@@ -113,13 +113,14 @@ public class MainActivity extends AppCompatActivity {
 
                     //decrement the interval value if triple toggle is on
                     if(toggleTriple == true){
-                        interval--;
+                        //interval--;
+                        displayedInterval++;
 
-                        if(displayInterval == true){
+                        if(displayIntervalToggle == true){
                             //set to visible
                             intervalTextView.setTextColor(Color.WHITE);
                             //Assign the interval integer to the intervalTextView to be displayed
-                            intervalTextView.setText(String.valueOf(interval));
+                            intervalTextView.setText(String.valueOf(displayedInterval));
                         }
                         else{
                             intervalTextView.setTextColor(Color.BLACK);
@@ -130,11 +131,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                    if(interval == 0){
+                    if(displayedInterval == interval){
                         //triple vibrate
                         vibrateobj.vibrate(mVibratePattern, -1);
                         //Initialize interval back to original value
                         interval = Integer.parseInt(interval_string);
+                        //reset displayed interval back to 0
+                        displayedInterval = 0;
                     }
 
                     //Display the result value
@@ -153,6 +156,10 @@ public class MainActivity extends AppCompatActivity {
             //if savedInstanceState is not null then we'll take that value and set the text to that value
             result = savedInstanceState.getInt("result");
             resultTextView.setText(result+"");
+
+            displayedInterval = savedInstanceState.getInt("displayedInterval");
+            intervalTextView.setTextColor(Color.WHITE);
+            intervalTextView.setText(displayedInterval+"");
         }
 
 
@@ -170,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         vlength = prefs.getInt("vibration_length", 50);
         toggleTriple = prefs.getBoolean("toggle_triple_key", false);
         interval_string = prefs.getString("interval_string_key", "10");
-        displayInterval = prefs.getBoolean("display_interval_key", true);
+        displayIntervalToggle = prefs.getBoolean("display_interval_key", true);
         resetInterval = prefs.getBoolean("reset_interval_key", false);
 
 
@@ -259,9 +266,11 @@ public class MainActivity extends AppCompatActivity {
                     if(resetInterval == true)
                     {
                         //reset interval back to original value
-                        interval = Integer.parseInt(interval_string);
-                        //Assign the interval integer to the intervalTextView to be displayed
-                        intervalTextView.setText(String.valueOf(interval));
+                        //interval = Integer.parseInt(interval_string);
+                        //reset displayed interval to 0
+                        displayedInterval = 0;
+                        //Assign the displayedInterval integer to the intervalTextView to be displayed
+                        intervalTextView.setText(String.valueOf(displayedInterval));
                     }
                     return true;
                 }
@@ -273,9 +282,11 @@ public class MainActivity extends AppCompatActivity {
                     if(resetInterval == true)
                     {
                         //reset interval back to original value
-                        interval = Integer.parseInt(interval_string);
-                        //Assign the interval integer to the intervalTextView to be displayed
-                        intervalTextView.setText(String.valueOf(interval));
+                        //interval = Integer.parseInt(interval_string);
+                        //reset displayed interval to 0
+                        displayedInterval = 0;
+                        //Assign the displayedInterval integer to the intervalTextView to be displayed
+                        intervalTextView.setText(String.valueOf(displayedInterval));
                     }
                     resultTextView.setText(result + "");
                     //Save result in shared preferences
@@ -308,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
         //Values we want to save when orientation changes
         //Result will be saved in the outside bundle
         outState.putInt("result", result);
+        outState.putInt("displayedInterval", displayedInterval);
     }
 
     //method to set full screen mode
