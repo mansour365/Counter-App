@@ -47,8 +47,8 @@
             app:defaultValue="false"
             app:key="toggle_triple_key"
             app:title="@string/triple_vibration_title"
-            app:summary="Enabling will vibrate 3 times after a certain interval of counts have passed"
-            app:useSimpleSummaryProvider="true" />
+            app:summary="Enabling will vibrate 3 times after a certain interval of counts have passed"/>
+            <!--app:useSimpleSummaryProvider="true"-->
 
         <EditTextPreference
             app:title="Triple vibration interval"
@@ -65,12 +65,12 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:key="display_interval_key"
             app:title="@string/display_interval_title"
-            app:summary="Toggle to display current interval in top right of screen"
-            app:useSimpleSummaryProvider="true"
-            app:dependency="toggle_triple_key"/>
+            app:summary="Toggle to display current interval in top right of screen"/>
+            <!--app:useSimpleSummaryProvider="true"-->
+            <!--app:dependency="toggle_triple_key"/> -->
 
     </PreferenceCategory>
 

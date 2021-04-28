@@ -170,10 +170,12 @@ public class MainActivity extends AppCompatActivity {
         vlength = prefs.getInt("vibration_length", 50);
         toggleTriple = prefs.getBoolean("toggle_triple_key", false);
         interval_string = prefs.getString("interval_string_key", "10");
-        displayInterval = prefs.getBoolean("display_interval_key", false);
+        displayInterval = prefs.getBoolean("display_interval_key", true);
         resetInterval = prefs.getBoolean("reset_interval_key", false);
 
 
+
+        //This part checks if the interval has changed, if it has then it gets updated
         //First check if the string is empty
         if(interval_string.equals("") || interval_string.isEmpty() || interval_string == ""){
             Toast.makeText(this, "You did not enter an interval, will use default of 10", Toast.LENGTH_SHORT).show();
@@ -207,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if(isFullScreen == true) {
             showSystemUI();
+            //getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         else {
             //Called from the parent class, this will do normal behaviour of back (exit app)
@@ -317,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        Toast.makeText(this, "Fullscreen mode", Toast.LENGTH_SHORT).show();
         isFullScreen = true;
 
         //load data
@@ -336,9 +340,10 @@ public class MainActivity extends AppCompatActivity {
     private void showSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                //View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        Toast.makeText(this, "Show system UI called", Toast.LENGTH_SHORT).show();
         isFullScreen = false;
     }
 

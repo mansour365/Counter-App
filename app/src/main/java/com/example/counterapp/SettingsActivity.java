@@ -81,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(this, "Interval has changed, it is now "+MainActivity.interval, Toast.LENGTH_SHORT).show();
         }
 
-        MainActivity.displayInterval = prefs.getBoolean("display_interval_key", false);
+        MainActivity.displayInterval = prefs.getBoolean("display_interval_key", true);
         MainActivity.resetInterval = prefs.getBoolean("reset_interval_key", false);
 
         //Toast.makeText(this, "Current triple state is "+MainActivity.toggleTriple, Toast.LENGTH_SHORT).show();
