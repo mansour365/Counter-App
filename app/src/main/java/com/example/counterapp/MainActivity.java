@@ -201,17 +201,17 @@ public class MainActivity extends AppCompatActivity {
         else{
             //If we are here then the string is not empty
             //check if the string is different from last string
-            if(oldInterval != Integer.parseInt(interval_string))
-            {
+            if(oldInterval != Integer.parseInt(interval_string)) {
                 //If we are here then the new string is different
                 //This interval will need to be stored, false means it has not been stored yet
                 intervalStored = false;
                 //Update current interval with new interval
                 interval = Integer.parseInt(interval_string);
                 Toast.makeText(this, "Interval has changed, it is now "+interval, Toast.LENGTH_SHORT).show();
+                //reset displayed interval back to 0
+                displayedInterval = 0;
             }
-            else
-            {
+            else {
                 Toast.makeText(this, "Interval has not changed", Toast.LENGTH_SHORT).show();
             }
         }

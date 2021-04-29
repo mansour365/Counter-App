@@ -68,9 +68,10 @@
             app:defaultValue="true"
             app:key="display_interval_key"
             app:title="@string/display_interval_title"
-            app:summary="Toggle to display current interval in top right of screen"/>
+            app:summary="Toggle to display current interval in top right of screen"
+            app:dependency="toggle_triple_key"/>
             <!--app:useSimpleSummaryProvider="true"-->
-            <!--app:dependency="toggle_triple_key"/> -->
+
 
     </PreferenceCategory>
 
