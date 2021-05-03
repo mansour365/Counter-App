@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
 
+
+
                     //Store the users interval if it is different
                     if(!intervalStored && toggleTriple == true){
                           oldInterval = Integer.parseInt(interval_string);
@@ -125,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
                         else{
                             intervalTextView.setTextColor(Color.BLACK);
                         }
+                    }
+                    else{
+                        intervalTextView.setTextColor(Color.BLACK);
                     }
 
 
@@ -173,12 +178,13 @@ public class MainActivity extends AppCompatActivity {
         resultTextView.setText(result+"");
 
         intervalTextView.setTextColor(Color.WHITE);
+
         intervalTextView.setText(displayedInterval+"");
 
 
 
 
-
+        //Changing something in settings will immediately have an affect with the code down here
 
         //Get any data from the settingsActivity page that was saved on that activity automatically
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -189,6 +195,13 @@ public class MainActivity extends AppCompatActivity {
         displayIntervalToggle = prefs.getBoolean("display_interval_key", true);
         resetInterval = prefs.getBoolean("reset_interval_key", false);
 
+
+        //If these were changed in settings the counter will immediately vanish
+        if(toggleTriple == false || displayIntervalToggle == false)
+        {
+            intervalTextView.setTextColor(Color.BLACK);
+
+        }
 
 
         //This part checks if the interval has changed, if it has then it gets updated
